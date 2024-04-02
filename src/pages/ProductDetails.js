@@ -39,7 +39,7 @@ const ProductDetails = () => {
         <Layout>
             <div className="row container mt-2 ">
                 <div className="col-md-6">
-                    <img src={`/api/v1/product/product-photo/${product._id}`} className="card-img-top" alt={product.name}
+                    <img src={`${API_BASE}/api/v1/product/product-photo/${product._id}`} className="card-img-top" alt={product.name}
                         style={{
                             height: '420px',
                             width: '420px',
@@ -65,7 +65,7 @@ const ProductDetails = () => {
                         {relatedProducts?.map((p) => (
                             <div className="card m-2" key={p._id}>
                                 <img
-                                    src={`/api/v1/product/product-photo/${p._id}`}
+                                    src={`${API_BASE}/api/v1/product/product-photo/${p._id}`}
                                     className="card-img-top"
                                     alt={p.name}
                                 />
