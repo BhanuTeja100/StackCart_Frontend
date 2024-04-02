@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import API_BASE from "../../hooks/apiUrl";
 const { Option } = Select;
 const UpdateProduct = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const UpdateProduct = () => {
     //GET sinngle product
     const getSingleProduct = async () => {
         try {
-            const {data} = await axios.get(`/api/v1/product/get-product/${params.slug}`)
+            const {data} = await axios.get(API_BASE + `/api/v1/product/get-product/${params.slug}`)
             setName(data.product.name);
             setId(data.product._id);
             setDescription(data.product.description);
@@ -44,7 +45,7 @@ const UpdateProduct = () => {
     //get all category
     const getAllCategory = async () => {
         try {
-            const { data } = await axios.get("/api/v1/category/get-category");
+            const { data } = await axios.get(API_BASE + "/api/v1/category/get-category");
             if (data?.success) {
                 setCategories(data?.category);
             }
@@ -70,7 +71,7 @@ const UpdateProduct = () => {
             photo && productData.append("photo", photo);
             productData.append("category", category);
             const { data } = axios.put(
-                `/api/v1/product/update-product/${id}`,
+                API_BASE + `/api/v1/product/update-product/${id}`,
                 productData
             );
             if (data?.success) {
@@ -91,7 +92,7 @@ const UpdateProduct = () => {
         try {
             let answer = window.prompt("Are You Sure you want to delete this product ? ");
             if(!answer) return;
-            const {data} = await axios.delete(`/api/v1/product/delete-product/${id}`)
+            const {data} = await axios.delete(API_BASE + `/api/v1/product/delete-product/${id}`)
             toast.success('Product Deleted Successfully')
             navigate('/dashboard/admin/products')
         } catch (error) {

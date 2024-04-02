@@ -7,6 +7,7 @@ import DropIn from "braintree-web-drop-in-react";
 import { AiFillWarning } from "react-icons/ai";
 import axios from "axios";
 import toast from "react-hot-toast";
+import API_BASE from "../hooks/apiUrl";
 
 const CartPage = () => {
     const [auth, setAuth] = useAuth();
@@ -44,7 +45,7 @@ const CartPage = () => {
     // get payment gateway token
     const getToken = async () => {
         try {
-            const { data } = await axios.get('/api/v1/product/braintree/token');
+            const { data } = await axios.get(API_BASE + '/api/v1/product/braintree/token');
             setClientToken(data?.clientToken)
         } catch (error) {
             console.log(error);
@@ -60,7 +61,7 @@ const CartPage = () => {
         try {
             setLoading(true);
             const { nonce } = await instance.requestPaymentMethod()
-            const { data } = await axios.post('/api/v1/product/braintree/payment', {
+            const { data } = await axios.post(API_BASE + '/api/v1/product/braintree/payment', {
                 nonce, cart
             })
             setLoading(false);

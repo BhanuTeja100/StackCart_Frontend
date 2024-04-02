@@ -4,6 +4,7 @@ import Layout from '../../components/Layout/Layout'
 import axios from 'axios';
 import { useAuth } from '../../context/auth';
 import moment from 'moment';
+import API_BASE from '../../hooks/apiUrl';
 const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [auth, setAuth] = useAuth();
@@ -11,7 +12,7 @@ const Orders = () => {
 
     const getOrders = async () => {
         try {
-            const { data } = await axios.get('/api/v1/auth/orders');
+            const { data } = await axios.get(API_BASE + '/api/v1/auth/orders');
             setOrders(data)
         } catch (error) {
             console.log(error);

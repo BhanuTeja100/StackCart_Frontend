@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import CategoryForm from "../../components/Form/CategoryForm";
 import { Modal } from 'antd';
+import API_BASE from "../../hooks/apiUrl";
 
 const CreateCategory = () => {
     const [categories, setCategories] = useState([]);
@@ -15,7 +16,7 @@ const CreateCategory = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const { data } = await axios.post('/api/v1/category/create-category', { name })
+            const { data } = await axios.post(API_BASE + '/api/v1/category/create-category', { name })
 
             if (data?.success) {
                 if (data.message == 'Category Already Exists') {
@@ -35,7 +36,7 @@ const CreateCategory = () => {
     //get all categories
     const getAllCategories = async () => {
         try {
-            const { data } = await axios.get("/api/v1/category/get-category");
+            const { data } = await axios.get(API_BASE + "/api/v1/category/get-category");
             if (data?.success) {
                 setCategories(data?.category);
                 console.log("categories: ", categories)
@@ -55,7 +56,7 @@ const CreateCategory = () => {
     const handleUpdate = async (e) => {
         e.preventDefault()
         try {
-            const { data } = await axios.put(`/api/v1/category/update-category/${selected._id}`, { name: updatedName })
+            const { data } = await axios.put(API_BASE + `/api/v1/category/update-category/${selected._id}`, { name: updatedName })
             if (data.success) {
                 toast.success(`${name} updated to ${updatedName}`);
                 setSelected(null);
@@ -74,7 +75,7 @@ const CreateCategory = () => {
     //delete category
     const handleDelete = async (pId) => {
         try {
-            const { data } = await axios.delete(`/api/v1/category/delete-category/${pId}`);
+            const { data } = await axios.delete(API_BASE + `/api/v1/category/delete-category/${pId}`);
             if (data.success) {
                 toast.success(`Category deleted`);
                 getAllCategories();
